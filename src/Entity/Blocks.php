@@ -18,7 +18,7 @@ class Blocks
     #[ORM\Column(length: 255)]
     private ?string $type = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: 'text')]
     private ?string $content = null;
 
     #[ORM\ManyToOne(inversedBy: 'blocks')]
