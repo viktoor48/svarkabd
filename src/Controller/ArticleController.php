@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Categories;
 use App\Entity\Articles;
+use App\Entity\Reclame;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -77,6 +78,7 @@ class ArticleController extends AbstractController
             'image' => $article->getImage(),
             // Другие данные статьи...
             'blocks' => $this->serializeBlocks($article->getBlocks()), // Сериализуем блоки статьи
+            'reclame' => $this->serializeReclame($article->getReclame()), // Сериализуем рекламу статьи, если она есть
         ];
 
         return $serializedArticle;
@@ -98,5 +100,21 @@ class ArticleController extends AbstractController
         }
 
         return $serializedBlocks;
+    }
+
+    private function serializeReclame(?Reclame $reclame): ?array
+    {
+        // Если рекламы нет, возвращаем null
+        if (!$reclame) {
+            return null;
+        }
+
+        // Сериализуем рекламу в массив
+        return [
+            'id' => $reclame->getId(),
+            'text' => $reclame->getText(),
+            'link' => $reclame->getLink(),
+            // Другие данные рекламы...
+        ];
     }
 }

@@ -37,6 +37,9 @@ class Articles
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $image = null;
 
+    #[ORM\OneToOne(mappedBy: 'article', cascade: ['persist', 'remove'])]
+    private ?Reclame $reclame = null;
+
     public function __construct()
     {
         $this->blocks = new ArrayCollection();
@@ -133,6 +136,28 @@ class Articles
     public function setImage(?string $image): static
     {
         $this->image = $image;
+
+        return $this;
+    }
+
+    public function getReclame(): ?Reclame
+    {
+        return $this->reclame;
+    }
+
+    public function setReclame(?Reclame $reclame): static
+    {
+        // unset the owning side of the relation if necessary
+        if ($reclame === null && $this->reclame !== null) {
+            $this->reclame->setArticle(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($reclame !== null && $reclame->getArticle() !== $this) {
+            $reclame->setArticle($this);
+        }
+
+        $this->reclame = $reclame;
 
         return $this;
     }
