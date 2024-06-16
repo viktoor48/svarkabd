@@ -114,7 +114,7 @@ class ArticleController extends AbstractController
             'id' => $reclame->getId(),
             'text' => $reclame->getText(),
             'link' => $reclame->getLink(),
-            // Другие данные рекламы...
+            'block' => $reclame->getBlock(),
         ];
     }
 }

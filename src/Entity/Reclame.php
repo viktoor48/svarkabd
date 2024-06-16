@@ -24,6 +24,9 @@ class Reclame
     #[ORM\OneToOne(inversedBy: 'reclame', cascade: ['persist', 'remove'])]
     private ?Articles $article = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $block = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -61,6 +64,18 @@ class Reclame
     public function setArticle(?Articles $article): static
     {
         $this->article = $article;
+
+        return $this;
+    }
+
+    public function getBlock(): ?int
+    {
+        return $this->block;
+    }
+
+    public function setBlock(?int $block): static
+    {
+        $this->block = $block;
 
         return $this;
     }

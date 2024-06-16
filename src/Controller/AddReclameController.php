@@ -44,6 +44,11 @@ class AddReclameController extends AbstractController
         $reclame->setLink($data['link']);
         $reclame->setArticle($article);
 
+        // Устанавливаем значение блока, если оно передано
+        if (isset($data['block'])) {
+            $reclame->setBlock($data['block']);
+        }
+
         // Сохраняем рекламу в базе данных
         $this->entityManager->persist($reclame);
         $this->entityManager->flush();
